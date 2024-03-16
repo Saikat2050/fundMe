@@ -1,0 +1,14 @@
+{
+  "name": "fundme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "solc": "0.8.24"
+  }
+}
