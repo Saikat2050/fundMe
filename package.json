@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
     "solc": "0.8.24"
   }
 }
