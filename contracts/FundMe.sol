@@ -7,23 +7,24 @@ error serverError();
 contract FundMe {
     uint256 constant MINIMUM_USD = 25 * 1e18;
     address immutable i_owner;
+    address immutable i_network;
     FunderDetail[] public funderDetails;
 
-    struct FunderDetail = {
+    struct FunderDetail {
         address funder_address;
         uint256 fund;
         string unit;
-        string statement;
         string status;
     }
 
-    constructor() {
+    constructor(address network_address) {
         i_owner = msg.sender;
+        i_network = network_address;
     }
 
     function fundMe() public payable {
         // validation
-        require(msg.value.convertEather() >= MINIMUM_USD, "Not enough funds!");
+        require(EthConverter.convertEther(i_network, msg.value) >= MINIMUM_USD, "Not enough funds!");
         FunderDetail memory funder = FunderDetail({
             funder_address: msg.sender,
             fund: msg.value,
@@ -40,8 +41,8 @@ contract FundMe {
             funderDetails[i].status = "WITHDRAWN";
         }
 
-        (bool callSuccess,) = payable(msg,sender).call{value: address(this).balance}("");
-        require(callSuccess, "call failed!")
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "call failed!");
     }
 
     receive() external payable {

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"
+import "node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 library EthConverter {
-    function convertEather(address networkAddress, uint256 ethAmount) public pure returns(uint256) {
+    function convertEther(address networkAddress, uint256 ethAmount) public view returns(uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(networkAddress);
         (,int256 price,,,) = priceFeed.latestRoundData();
 
